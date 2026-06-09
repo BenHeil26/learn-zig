@@ -7,6 +7,7 @@ const Io = std.Io;
 /// Accepting an `Io.Writer` instance is a handy way to write reusable code.
 pub fn printAnotherMessage(writer: *Io.Writer) Io.Writer.Error!void {
     try writer.print("Run `zig build test` to run the tests.\n", .{});
+    try writer.print("The result of {d} + {d} is: {d}", .{ 2, 4, add(2, 4) });
 }
 
 pub fn add(a: i32, b: i32) i32 {
