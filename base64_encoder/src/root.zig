@@ -1,4 +1,3 @@
-//! By convention, root.zig is the root source file when making a package.
 const std = @import("std");
 const testing = std.testing;
 
@@ -42,6 +41,7 @@ pub fn _calc_decode_length(input: []const u8) !usize {
             multiple_groups -= 1;
         } else break;
     }
+
     return multiple_groups;
 }
 
@@ -54,6 +54,14 @@ test "_calc_encode_length" {
     const test_cases = .{ .{ "hi", 4 }, .{ "longer", 8 } };
     inline for (test_cases) |test_case| {
         const result = try _calc_encode_length(test_case.@"0");
+        try testing.expectEqual(test_case.@"1", result);
+    }
+}
+
+test "_calc_decode_length" {
+    const test_cases = .{ .{ "aGk=", 2 }, .{ "aGVsbG8gd29ybGQ=", 11 } };
+    inline for (test_cases) |test_case| {
+        const result = try _calc_decode_length(test_case.@"0");
         try testing.expectEqual(test_case.@"1", result);
     }
 }
