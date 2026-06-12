@@ -2,7 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 const EncoderError = error{ EmptyInput, OutOfRange, MalformedBase64 };
-const Base64 = struct {
+pub const Base64 = struct {
     _table: *const [64]u8 = undefined,
 
     pub fn init() Base64 {
