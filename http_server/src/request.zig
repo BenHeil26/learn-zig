@@ -13,8 +13,10 @@ pub fn read_request(io: std.Io, conn: Stream, buffer: []u8) !void {
     }
 }
 
-fn read_next_line(reader: std.Io.Reader, buffer: []u8, start_index: usize) !usize {
-    const next_line = try reader.takeDelimiterInclusive("\n");
+fn read_next_line(reader: *std.Io.Reader, buffer: []u8, start_index: usize) !usize {
+    const next_line = try reader.takeDelimiterInclusive('\n');
     @memcpy(buffer[start_index..(start_index + next_line.len)], next_line[0..]);
     return next_line.len;
 }
+
+pub const Method = enum { GET, PUT, POST, PATCH, DELETE, OPTIONS };
